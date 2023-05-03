@@ -2,53 +2,62 @@ package windows;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.io.*;
+import okhttp3.*;
 
 public class Main{
-    public static void main(String[] args) {
-        System.out.println("Hello world");
+    public static void main(String[] args) throws IOException {
+        String cadena;
+        String[] opciones = {"Converso de Moneda", "Conversor de Temperatura"};
+        String[] conversor_monedas = {"De soles a Dólar", "De Soles a Euro", "De Dolar a Soles", "De Euro a Soles"};
 
-        // componente JFrame
+        Double[] valor_monedas = {3.686179, 0.907215};
 
-        JFrame miJFrame = new JFrame("Ejemplo - Java Swing"); //BASE - CONTENEDOR NIVEL SUPERIOR
-        miJFrame.setSize(500, 300);
+        String[] conversor_temperatura = {"De Celcius a Farenguei"};
 
-        // componente JPanel
 
-        JPanel miJPanel = new JPanel();// UBICACION DE ELEMENTOS, JPANEL, JSCROLLPAN, JTABBED PANE - CONTENEDOR NIVEL INTERMEDIO
-        miJPanel.setBackground(Color.GREEN);
-        miJPanel.setSize(300, 300);
+        Object valor = JOptionPane.showInputDialog(null, "Seleccione", "MENU", JOptionPane.QUESTION_MESSAGE, null, opciones, null);
 
-        JPanel panel2 = new JPanel();
-        panel2.setBackground(Color.orange);
-        panel2.setSize(10, 10);
+            if (valor.equals(opciones[0])){
+            System.out.println(valor);
+            Object to_change = JOptionPane.showInputDialog(null, "Elige la moneda a la que deseas convertir tu dinero", "Monedas", JOptionPane.QUESTION_MESSAGE, null, conversor_monedas, null);
 
-        // usamos este diseño para centrar los componentes de JPanel
+            String to_value = "";
+            double v = 0;
+            switch (to_change.toString()){
+                case "De soles a Dólar":
+                    to_value = JOptionPane.showInputDialog(null, "Ingrese valor a convertir");
+                    v = Double.parseDouble(to_value) / valor_monedas[0];
+                    JOptionPane.showConfirmDialog(null, Double.toString(v));
 
-//        miJPanel.setLayout(new GridBagLayout());
+                case "De Soles a Euro":
+                     to_value = JOptionPane.showInputDialog(null, "Ingrese valor a convertir");
+                     v = (Double.parseDouble(to_value) / valor_monedas[0]) * valor_monedas[1];
+                    JOptionPane.showConfirmDialog(null, Double.toString(v));
 
-        // ALMACENA OTROS ELEMENTOS, JBUTTON, JLABEL, JCOMBOBOX, JTEXTFIELD - CONTENEDOR ATOMICO
+                case "De Dolar a Soles":
+                    to_value = JOptionPane.showInputDialog(null, "Ingrese valor a convertir");
+                    v = (Double.parseDouble(to_value) * valor_monedas[0]);
+                    JOptionPane.showConfirmDialog(null, Double.toString(v));
 
-        // componente JTextField
+                case "De Euro a Soles":
+                    to_value = JOptionPane.showInputDialog(null, "Ingrese valor a convertir");
+                    v = (Double.parseDouble(to_value)/ valor_monedas[1] ) * valor_monedas[0];
+                    JOptionPane.showConfirmDialog(null, Double.toString(v));
+            }
+            if ("yes".equalsIgnoreCase(to_value) && JOptionPane.YES_OPTION == 0) {
+                System.exit(0);
+            }
 
-        JLabel miJlabel = new JLabel();
-        miJlabel.setText("Dime tu opinion acerca de Java Swing: ");
+            Object import1 = JOptionPane.showInputDialog(null, "Ingrese la cantidad a convertir: ", "Monedas", JOptionPane.QUESTION_MESSAGE, null, conversor_monedas, null);
 
-        // componete JTextArea
+        }
+        if (valor.equals(opciones[1])){
+            System.out.println(valor);
+            JOptionPane.showInputDialog(null, "Elige la moneda a la que deseas convertir tu dinero", "Monedas", JOptionPane.QUESTION_MESSAGE, null, conversor_temperatura, null);
+        }
 
-        JTextArea miJTextArea = new JTextArea(2, 20);
-
-        // conecta los componentes JLabel y JTextField en JPanel
-
-        miJPanel.add(miJlabel);
-        miJPanel.add(miJTextArea);
-
-        // conectar Jpanel a JFrame
-
-        miJFrame.add(miJPanel);
-//        miJFrame.add(panel2);
-
-        // hacer visible JFrame
-
-        miJFrame.setVisible(true);
+        System.out.println(valor);
     }
 }
